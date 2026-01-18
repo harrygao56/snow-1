@@ -1,0 +1,339 @@
+meta:
+  engine: 4.1.0
+points:
+  zones:
+    left:
+      anchor:
+        shift: [100, -150]
+      key:
+        tags: [left]
+      rows:
+        mod:
+          row_net: P011
+          shift: [0, 0]
+        bottom:
+          row_net: P104
+          shift: [1U, 0]
+        home:
+          row_net: P106
+          shift: [-0.5U, 0]
+        top:
+          row_net: P031
+          shift: [-0.25U, 0]
+        num:
+          row_net: P029
+          shift: [-.25U, 0]
+      columns:
+        c1:
+          key:
+            column_net: P006
+          rows:
+            bottom:
+              width: 2u-1
+              tags: [left, u200]
+              adjust:
+                shift: [-0.5U, 0]
+            home:
+              width: 1.5u-1
+              tags: [left, u150]
+              adjust:
+                shift: [-0.25U, 0]
+            top:
+              width: 1.25u-1
+              tags: [left, u125]
+              adjust:
+                shift: [-0.125U, 0]
+        c2:
+          key:
+            column_net: P008
+        c3:
+          key:
+            column_net: P017
+        c4:
+          key:
+            column_net: P020
+        c5:
+          key:
+            column_net: P022
+        c6:
+          key:
+            column_net: P024
+          rows:
+            mod:
+              width: 2u-1
+              tags: [left, u200]
+              adjust:
+                shift: [0.5U, 0]
+        c7:
+          key:
+            column_net: P100
+          rows:
+            top:
+              skip: true
+            home:
+              skip: true
+            bottom:
+              skip: true
+            mod:
+              skip: true
+    right:
+      key:
+        tags: [right]
+      anchor:
+        shift: [250, -150]
+      rows:
+        mod:
+          row_net: P011
+          shift: [0, 0]
+        bottom:
+          row_net: P104
+          shift: [0, 0]
+        home:
+          row_net: P106
+          shift: [0.5U, 0]
+        top:
+          row_net: P031
+          shift: [-.25U, 0]
+        num:
+          row_net: P029
+          shift: [-.25U, 0]
+      columns:
+        c1:
+          key:
+            column_net: P006
+          rows:
+            mod:
+              skip: true
+            bottom:
+              skip: true
+            num:
+              skip: true
+        c2:
+          key:
+            column_net: P008
+          rows:
+            mod:
+              skip: true
+        c3:
+          key:
+            column_net: P017
+          rows:
+            mod:
+              width: 2u-1
+              tags: [right, u200]
+              adjust:
+                shift: [-0.5U, 0]
+        c4:
+          key:
+            column_net: P020
+        c5:
+          key:
+            column_net: P022
+        c6:
+          key:
+            column_net: P024
+          rows:
+            home:
+              width: 1.5u-1
+              tags: [u150, right]
+              adjust:
+                shift: [0.25U, 0]
+            top:
+              width: 1.75u-1
+              tags: [u175, right]
+              adjust:
+                shift: [0.375U, 0]
+        c7:
+          key:
+            column_net: P100
+          rows:
+            home:
+              skip: true
+            top:
+              skip: true
+outlines:
+  raw_left:
+    - what: rectangle
+      where: left
+      size: [18, 18]
+
+    - what: rectangle
+      where: [[left, u200]]
+      size: [37, 18]
+
+    - what: rectangle
+      where: [[left, u150]]
+      size: [27.5, 18]
+
+    - what: rectangle
+      where: [[left, u125]]
+      size: [22.75, 18]
+
+    - what: rectangle
+      where: [[left, u175]]
+      size: [32.25, 18]
+
+  raw_right:
+    - what: rectangle
+      where: right
+      size: [18, 18]
+
+    - what: rectangle
+      where: [[right, u200]]
+      size: [37, 18]
+
+    - what: rectangle
+      where: [[right, u150]]
+      size: [27.5, 18]
+
+    - what: rectangle
+      where: [[right, u125]]
+      size: [22.75, 18]
+
+    - what: rectangle
+      where: [[right, u175]]
+      size: [32.25, 18]
+
+  board_left:
+    - what: outline
+      name: raw_left
+      expand: 3
+      fillet: 2
+
+  board_right:
+    - what: outline
+      name: raw_right
+      expand: 3
+      fillet: 2
+
+pcbs:
+  left:
+    template: kicad8
+    outlines:
+      main:
+        outline: board_left
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: /^left.*/
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        adjust:
+          # Rotate the key switches upside-down (easier to fit controller that way)
+          rotate: 180
+      nice_nano:
+        what: Nice Nano
+        adjust:
+          rotate: 180
+        where:
+          ref: left_c6_mod
+          shift: [2, -1]
+      diode:
+        what: diode
+        where: /^left.*/
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, 3.5]
+      # Battery jack
+      jstph:
+        what: jstph
+        where:
+          ref: left_c3_home
+          shift: [-4, 9.0]
+          rotate: 90
+        params:
+          side: B
+          pos: pos
+          neg: GND
+      # Battery on/off switch
+      battery_switch:
+        what: slider
+        where:
+          ref: left_c7_num
+          shift: [0, 10]
+          rotate: 0
+        params:
+          side: B
+          from: pos
+          to: RAW
+      # Reset switch (horizontal community version)
+      horizontal_reset:
+        what: EVQPUC
+        params:
+          side: B
+          from: GND
+          to: RST
+        where:
+          ref: left_c6_num
+          shift: [5, 10]
+          rotate: 0
+  right:
+    template: kicad8
+    outlines:
+      main:
+        outline: board_right
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: /^right.*/
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        adjust:
+          # Rotate the key switches upside-down (easier to fit controller that way)
+          rotate: 180
+      nice_nano:
+        what: Nice Nano
+        where:
+          ref: right_c3_mod
+          shift: [-2, -1]
+      diode:
+        what: diode
+        where: /^right.*/
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, 3.5]
+      # Battery jack
+      jstph:
+        what: jstph
+        where:
+          ref: right_c4_home
+          shift: [4, 9.0]
+          rotate: -90
+        params:
+          side: B
+          pos: pos
+          neg: GND
+      # Battery on/off switch
+      battery_switch:
+        what: slider
+        where:
+          ref: right_c2_num
+          shift: [0, 10]
+          rotate: 0
+        params:
+          side: B
+          from: pos
+          to: RAW
+      # Reset switch (horizontal community version)
+      horizontal_reset:
+        what: EVQPUC
+        params:
+          side: B
+          from: GND
+          to: RST
+        where:
+          ref: right_c3_num
+          shift: [-5, 10]
+          rotate: 0
