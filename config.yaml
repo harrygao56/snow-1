@@ -12,10 +12,10 @@ points:
           row_net: P011
           shift: [0, 0]
         bottom:
-          row_net: P104
+          row_net: P010
           shift: [1U, 0]
         home:
-          row_net: P106
+          row_net: P115
           shift: [-0.5U, 0]
         top:
           row_net: P031
@@ -26,7 +26,7 @@ points:
       columns:
         c1:
           key:
-            column_net: P006
+            column_net: P106
           rows:
             bottom:
               width: 2u-1
@@ -48,13 +48,13 @@ points:
             column_net: P008
         c3:
           key:
-            column_net: P017
+            column_net: P009
         c4:
           key:
             column_net: P020
         c5:
           key:
-            column_net: P022
+            column_net: P111
         c6:
           key:
             column_net: P024
@@ -116,7 +116,7 @@ points:
               skip: true
         c3:
           key:
-            column_net: P017
+            column_net: P113
           rows:
             mod:
               width: 2u-1
@@ -125,10 +125,10 @@ points:
                 shift: [-0.5U, 0]
         c4:
           key:
-            column_net: P020
+            column_net: P111
         c5:
           key:
-            column_net: P022
+            column_net: P009
         c6:
           key:
             column_net: P024
@@ -256,7 +256,7 @@ pcbs:
         what: slider
         where:
           ref: left_c7_num
-          shift: [0, 10]
+          shift: [0, 9.5]
           rotate: 0
         params:
           side: B
@@ -273,6 +273,26 @@ pcbs:
           ref: left_c6_num
           shift: [5, 10]
           rotate: 0
+      hole_top_left:
+        what: mounting_hole
+        where:
+          ref: left_c1_num
+          shift: [-5, -10]
+      hole_top_right:
+        what: mounting_hole
+        where:
+          ref: left_c7_num
+          shift: [-5, -10]
+      hole_bottom_left:
+        what: mounting_hole
+        where:
+          ref: left_c1_mod
+          shift: [-5, 10]
+      hole_bottom_right:
+        what: mounting_hole
+        where:
+          ref: left_c5_bottom
+          shift: [-7, -10]
   right:
     template: kicad8
     outlines:
@@ -320,7 +340,7 @@ pcbs:
         what: slider
         where:
           ref: right_c2_num
-          shift: [0, 10]
+          shift: [0, 9.5]
           rotate: 0
         params:
           side: B
@@ -337,3 +357,23 @@ pcbs:
           ref: right_c3_num
           shift: [-5, 10]
           rotate: 0
+      hole_top_left:
+        what: mounting_hole
+        where:
+          ref: right_c2_num
+          shift: [-5, -10]
+      hole_top_right:
+        what: mounting_hole
+        where:
+          ref: right_c7_num
+          shift: [5, -10]
+      hole_bottom_left:
+        what: mounting_hole
+        where:
+          ref: right_c3_bottom
+          shift: [7, -10]
+      hole_bottom_right:
+        what: mounting_hole
+        where:
+          ref: right_c7_bottom
+          shift: [0, -10]
