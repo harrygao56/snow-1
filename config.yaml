@@ -206,6 +206,96 @@ outlines:
       expand: 3
       fillet: 2
 
+  # Screw hole outlines for cases (2.4mm diameter)
+  screw_hole_left_top_left:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: left_c1_num
+        shift: [-5, -10]
+
+  screw_hole_left_top_right:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: left_c7_num
+        shift: [-5, -10]
+
+  screw_hole_left_bottom_left:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: left_c1_mod
+        shift: [-5, 10]
+
+  screw_hole_left_bottom_right:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: left_c5_bottom
+        shift: [-7, -10]
+
+  screw_hole_right_top_left:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: right_c2_num
+        shift: [-5, -10]
+
+  screw_hole_right_top_right:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: right_c7_num
+        shift: [5, -10]
+
+  screw_hole_right_bottom_left:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: right_c3_bottom
+        shift: [7, -10]
+
+  screw_hole_right_bottom_right:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: right_c7_bottom
+        shift: [0, -10]
+
+  # Case outlines with screw holes
+  case_left:
+    - what: outline
+      name: board_left
+    - what: outline
+      name: screw_hole_left_top_left
+      operation: subtract
+    - what: outline
+      name: screw_hole_left_top_right
+      operation: subtract
+    - what: outline
+      name: screw_hole_left_bottom_left
+      operation: subtract
+    - what: outline
+      name: screw_hole_left_bottom_right
+      operation: subtract
+
+  case_right:
+    - what: outline
+      name: board_right
+    - what: outline
+      name: screw_hole_right_top_left
+      operation: subtract
+    - what: outline
+      name: screw_hole_right_top_right
+      operation: subtract
+    - what: outline
+      name: screw_hole_right_bottom_left
+      operation: subtract
+    - what: outline
+      name: screw_hole_right_bottom_right
+      operation: subtract
+
 pcbs:
   left:
     template: kicad8
