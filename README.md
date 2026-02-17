@@ -1,2 +1,2 @@
-# snow-1 (Split, Non-Ortholinear, Wireless)
+# snow-1
 My custom keyboard
